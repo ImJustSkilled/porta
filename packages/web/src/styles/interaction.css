@@ -1,0 +1,97 @@
+/* ── Pointer-device hover effects ──────────────────────────────────────────────
+   All interactive :hover rules live here. Touch devices skip this entire
+   section via the media query, preventing "sticky hover" and double-tap issues.
+   ⚠ Do NOT add :hover rules for clickable elements outside this block. ──── */
+
+@media (hover: hover) {
+  /* Sidebar */
+  .sidebar-icon-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  .sidebar-project-tab:hover {
+    background: var(--bg-hover);
+    color: var(--text-secondary);
+  }
+
+  .sidebar-action-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  .sidebar-item:hover {
+    background: var(--bg-hover);
+  }
+
+  .sidebar-item.dimmed:hover {
+    opacity: 0.75;
+  }
+
+  .sidebar-item:hover .item-indicator,
+  .sidebar-item:hover .item-dot {
+    display: none;
+  }
+
+  .sidebar-item:hover .sidebar-item-menu-btn {
+    display: flex;
+    opacity: 0.6;
+  }
+
+  .sidebar-item-menu-btn:hover {
+    opacity: 1 !important;
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  .workspace-group-header:hover {
+    color: var(--text-primary);
+  }
+
+  .see-all-btn:hover {
+    color: var(--text-secondary);
+  }
+
+  /* Context menu */
+  .context-menu-item:hover {
+    background: rgb(var(--c-lift) / 0.05);
+  }
+
+  .context-menu-item.danger:hover {
+    background: rgb(var(--c-error) / 0.06);
+  }
+
+  /* Search results */
+  .search-result-item:hover {
+    background: var(--bg-hover);
+  }
+
+  /* Code copy button */
+  .code-copy-btn:hover {
+    opacity: 1;
+    color: var(--text-primary);
+    background: var(--bg-hover);
+  }
+
+  /* Message actions */
+
+  .msg-action-btn:hover {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+  }
+
+  /* Media thumbnails */
+  .message-media-thumb:hover {
+    transform: scale(1.02);
+  }
+
+  /* Step cards */
+  .step-card-header:hover {
+    background: var(--bg-hover);
+  }
+
+  /* Command cards: no hover highlight */
+  .command-card .step-card-header:hover {
+    background: transparent;
+  }
+}
